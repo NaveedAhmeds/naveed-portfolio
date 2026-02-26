@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Naveed Ahmed Syed — Portfolio
 
-## Getting Started
+This repository contains my personal software engineering portfolio, built with **Next.js (App Router)** and **React**. The design is intentionally minimal and resume‑like: dark, focused, and centered on the work rather than visual noise.
 
-First, run the development server:
+## About this site
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The home page introduces who I am and what I work on. A concise hero section highlights:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Name and role: **Software Engineer**
+- Location: **Toronto, ON**
+- Core languages: **C++**, **Python**, **Swift**, **JavaScript**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+From there, visitors can quickly download a PDF résumé or scroll into sections that mirror a modern CV: skills, experience, projects, and contact.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Skills
 
-## Learn More
+The skills section is compact and text‑first so it’s easy to scan:
 
-To learn more about Next.js, take a look at the following resources:
+- **Languages:** C, C++, Python, Swift, JavaScript, TypeScript  
+- **Frameworks & Libraries:** React, Next.js, Express.js, Flask, TensorFlow, scikit‑learn, pandas, OpenCV  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The goal is to make it obvious which stacks I’m productive in, without clicking into multiple pages.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Experience
 
-## Deploy on Vercel
+Work experience is presented as a simple timeline:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Clear **company**, **title**, **dates**, and **employment type**
+- Impact‑focused bullet points that highlight:
+  - Automation and test coverage
+  - Performance improvements
+  - Reliability and production stability
+  - Shipping features in real products
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This makes it easy for recruiters and engineers to understand how I contribute on real teams.
+
+## Projects
+
+Projects are grouped into categories:
+
+- **AI / ML & Computer Vision**
+- **Automation & Tooling**
+- **Application Development**
+- **Full‑Stack Web Development**
+- **Open Source**
+
+Each project card shows a title, tag, tech stack, and links to a technical deep dive (where applicable) and the source code. Example projects:
+
+- Self‑driving car behavioral cloning simulator  
+- Real‑time smile detection pipeline  
+- SSH login automation tools  
+- Contributions to **Vital Box** and **Visual Studio Code**
+
+## Contact
+
+A minimal contact footer exposes the essentials:
+
+- Email: **syednaveed2006@gmail.com**
+- Links to **GitHub** and **LinkedIn**
+
+This repo is a snapshot of how I design, implement, and communicate my work as a software engineer.
