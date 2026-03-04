@@ -3,6 +3,7 @@ import { Skills } from "./components/Skills";
 import { Projects } from "./components/Projects";
 import { Experience } from "./components/Experience";
 import { Contact } from "./components/Contact";
+import { SectionReveal } from "./components/SectionReveal";
 import styles from "./page.module.css";
 
 export default function Page() {
@@ -10,12 +11,24 @@ export default function Page() {
     <div className={styles.page}>
       <div className={styles.main}>
         <Hero />
-        <Skills />
+
+        <SectionReveal>
+          <Skills />
+        </SectionReveal>
+
         <section id="experience" />
-        <Experience />
+        <SectionReveal delay={50}>
+          <Experience />
+        </SectionReveal>
+
         <section id="projects" />
-        <Projects />
-        <Contact />
+        <SectionReveal delay={50}>
+          <Projects />
+        </SectionReveal>
+
+        <SectionReveal delay={50}>
+          <Contact />
+        </SectionReveal>
       </div>
     </div>
   );

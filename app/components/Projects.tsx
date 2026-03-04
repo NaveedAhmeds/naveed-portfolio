@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type Project = {
   slug?: string;
@@ -126,6 +127,9 @@ const categories: Category[] = [
   },
 ];
 
+// all projects flattened to know which index is truly "first"
+const allProjects = categories.flatMap((c) => c.projects);
+
 export function Projects() {
   return (
     <section
@@ -136,48 +140,91 @@ export function Projects() {
         margin: "0 auto",
       }}
     >
-      <style>
-        {`
-          .project-card {
-            background-color: #000;
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 20px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition:
-              transform 180ms cubic-bezier(0.25, 0.8, 0.25, 1),
-              box-shadow 180ms cubic-bezier(0.25, 0.8, 0.25, 1),
-              border-color 180ms cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 16px 32px rgba(0,0,0,0.65);
-          }
+      <style>{`
+        .project-card {
+          background-color: #000;
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 20px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          contain: layout style paint;
+          transition:
+            transform 160ms cubic-bezier(0.25, 0.8, 0.25, 1),
+            box-shadow 160ms cubic-bezier(0.25, 0.8, 0.25, 1),
+            border-color 160ms cubic-bezier(0.25, 0.8, 0.25, 1);
+          box-shadow: 0 16px 32px rgba(0,0,0,0.65);
+          will-change: transform;
+        }
 
-          .project-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 24px 48px rgba(0,0,0,0.85);
-            border-color: rgba(255,255,255,0.28);
-          }
+        .project-card:hover {
+          transform: translateY(-4px) translateZ(0);
+          box-shadow: 0 28px 56px rgba(0,0,0,0.85);
+          border-color: rgba(255,255,255,0.28);
+        }
 
+        .project-img-wrap {
+          position: relative;
+          height: 180px;
+          width: 100%;
+          background-color: #050505;
+          overflow: hidden;
+        }
+
+        .project-img-wrap img {
+          transition: transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .project-card:hover .project-img-wrap img {
+          transform: scale(1.04) translateZ(0);
+        }
+
+        .source-link {
+          font-size: 13px;
+          font-weight: 500;
+          color: #d4d4d8;
+          text-decoration: none;
+          transition: color 160ms ease;
+        }
+
+        .source-link:hover {
+          color: #ffffff;
+        }
+
+        .deep-dive-link {
+          font-size: 13px;
+          font-weight: 500;
+          color: #2997ff;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          transition: opacity 160ms ease;
+        }
+
+        .deep-dive-link:hover {
+          opacity: 0.75;
+        }
+
+        .projects-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+        }
+
+        @media (max-width: 480px) {
           .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
+            grid-template-columns: 1fr;
           }
+        }
 
-          @media (max-width: 480px) {
-            .projects-grid {
-              grid-template-columns: 1fr;
-            }
+        @media (min-width: 768px) {
+          .projects-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
           }
-
-          @media (min-width: 768px) {
-            .projects-grid {
-              grid-template-columns: repeat(2, 1fr);
-              gap: 24px;
-            }
-          }
-        `}
-      </style>
+        }
+      `}</style>
 
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "80px" }}>
@@ -222,30 +269,30 @@ export function Projects() {
 
             <div className="projects-grid">
               {cat.projects.map((p) => {
+                const globalIndex = allProjects.indexOf(p);
                 const showDeepDive =
                   cat.name === "AI / ML & Computer Vision" && p.slug;
 
                 return (
                   <article key={p.title} className="project-card">
                     {/* Image */}
-                    <div
-                      style={{
-                        height: "180px",
-                        width: "100%",
-                        backgroundColor: "#050505",
-                        backgroundImage: `url(${p.image})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        position: "relative",
-                      }}
-                    >
+                    <div className="project-img-wrap">
+                      <Image
+                        src={p.image}
+                        alt={p.title}
+                        fill
+                        sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 560px"
+                        style={{ objectFit: "cover" }}
+                        priority={globalIndex < 2}
+                        loading={globalIndex < 2 ? "eager" : "lazy"}
+                      />
                       {p.featured && (
                         <span
                           style={{
                             position: "absolute",
                             top: "12px",
                             right: "12px",
-                            background: "rgba(255, 255, 255, 0.96)",
+                            background: "rgba(255,255,255,0.96)",
                             color: "#000",
                             fontSize: "10px",
                             fontWeight: 700,
@@ -253,6 +300,7 @@ export function Projects() {
                             borderRadius: "999px",
                             textTransform: "uppercase",
                             letterSpacing: "0.06em",
+                            zIndex: 1,
                           }}
                         >
                           Featured
@@ -319,15 +367,8 @@ export function Projects() {
                         {showDeepDive && (
                           <Link
                             href={`/projects/${p.slug}`}
-                            style={{
-                              fontSize: "13px",
-                              fontWeight: 500,
-                              color: "#2997ff",
-                              textDecoration: "none",
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "4px",
-                            }}
+                            className="deep-dive-link"
+                            prefetch={true}
                           >
                             Technical Deep Dive <span style={{ fontSize: "15px" }}>›</span>
                           </Link>
@@ -337,13 +378,7 @@ export function Projects() {
                           href={p.link}
                           target="_blank"
                           rel="noreferrer"
-                          style={{
-                            fontSize: "13px",
-                            fontWeight: 500,
-                            color: "#d4d4d8",
-                            textDecoration: "none",
-                            transition: "color 0.2s",
-                          }}
+                          className="source-link"
                         >
                           Source Code ↗
                         </a>

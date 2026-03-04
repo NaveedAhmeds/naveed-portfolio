@@ -5,13 +5,14 @@ import Lenis from "lenis";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const lenis = new Lenis({
-  duration: 0.5,
-  easing: (t) => 1 - Math.pow(1 - t, 3),
-  smoothWheel: true,
-  wheelMultiplier: 1.5, 
-});
+    if (window.matchMedia("(pointer: coarse)").matches) return;
 
+    const lenis = new Lenis({
+      duration: 0.8,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+    });
 
     function raf(time: number) {
       lenis.raf(time);
@@ -19,7 +20,6 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     }
 
     requestAnimationFrame(raf);
-
     return () => lenis.destroy();
   }, []);
 

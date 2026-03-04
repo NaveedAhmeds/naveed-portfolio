@@ -19,12 +19,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
-html {
-  scroll-behavior: smooth;
-}
-
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
@@ -36,6 +32,8 @@ body {
     "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: #000000;
   color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 main {
@@ -72,6 +70,31 @@ section {
   border-radius: 24px;
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
+}
+
+.card,
+button,
+a {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+::view-transition-old(root) {
+  animation: fadeOut 0.2s ease forwards;
+}
+
+::view-transition-new(root) {
+  animation: fadeIn 0.2s ease forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @media (max-width: 900px) {
