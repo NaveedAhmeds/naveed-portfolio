@@ -55,15 +55,14 @@ export function Experience() {
     <section
       id="experience"
       style={{
-        padding: "80px 24px", // Reduced top padding for mobile
+        padding: "80px 24px", 
         maxWidth: "800px",
         margin: "0 auto"
       }}
     >
       <h2
         style={{
-          fontSize: "clamp(32px, 5vw, 48px)", // Responsive font size
-          fontWeight: 600,
+          fontSize: "clamp(32px, 5vw, 48px)", 
           letterSpacing: "-0.03em",
           color: "#f5f5f7",
           marginBottom: "16px",
@@ -74,7 +73,7 @@ export function Experience() {
       </h2>
       <p
         style={{
-          fontSize: "clamp(18px, 4vw, 21px)", // Responsive body
+          fontSize: "clamp(18px, 4vw, 21px)", 
           color: "#86868b",
           maxWidth: "600px",
           margin: "0 auto 60px",
@@ -89,7 +88,7 @@ export function Experience() {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "48px" // Slightly tighter gap
+          gap: "48px"
         }}
       >
         {experience.map((role, i) => (

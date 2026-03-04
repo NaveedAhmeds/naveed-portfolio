@@ -15,14 +15,14 @@ export function Hero() {
         textAlign: "center",
         minHeight: "100vh",
         position: "relative",
-        padding: "48px 16px 72px", // a bit tighter and smaller side padding for phones
+        padding: "48px 16px 72px", 
         overflow: "hidden",
       }}
     >
       {/* Name */}
       <h1
         style={{
-          fontSize: "clamp(32px, 8vw, 64px)", // smaller minimum for phones
+          fontSize: "clamp(32px, 8vw, 64px)", 
           fontWeight: 700,
           letterSpacing: "-0.03em",
           color: "#f5f5f7",
@@ -73,7 +73,7 @@ export function Hero() {
             style={{
               display: "block",
               objectFit: "cover",
-              width: "40px", // slightly smaller so it doesn’t dominate on phones
+              width: "40px", 
               height: "auto",
             }}
           />
@@ -123,14 +123,14 @@ export function Hero() {
 
       {/* Resume CTA */}
       <a
-        href="/Resume.pdf"
+        href="/Naveed_Ahmed_Syed_Resume.pdf"
         download
         style={{
           display: "inline-flex",
           alignItems: "center",
           justifyContent: "center",
           padding: "0 28px",
-          height: "46px", // slightly shorter for phones but still a good target
+          height: "46px", 
           borderRadius: "999px",
           background: "linear-gradient(135deg, #ffffff, #e5e5f0)",
           color: "#000000",

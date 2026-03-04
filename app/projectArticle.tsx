@@ -1,17 +1,26 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import React, { useCallback } from "react";
+import { useRouter } from "next/navigation";
 import type { ProjectDetail } from "@/app/data/projectDetails";
 
 export default function ProjectArticle({ project }: { project: ProjectDetail }) {
+  const router = useRouter();
+
+  const handleBack = useCallback(() => {
+    router.push("/");
+    setTimeout(() => {
+      document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+    }, 300);
+  }, [router]);
+
   return (
     <main style={{ backgroundColor: "#000", color: "#f5f5f7", minHeight: "100vh" }}>
-      
+
       {/* 1. HERO SECTION */}
       <header
         style={{
-          padding: "96px 24px 64px", 
+          padding: "96px 24px 64px",
           textAlign: "center",
           maxWidth: "900px",
           margin: "0 auto",
@@ -62,7 +71,16 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
       </header>
 
       {/* 2. MEDIA & TEXT SECTIONS */}
-      <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 24px", display: "flex", flexDirection: "column", gap: "80px" }}>
+      <div
+        style={{
+          maxWidth: "1000px",
+          margin: "0 auto",
+          padding: "0 24px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "80px"
+        }}
+      >
         {project.sections?.map((s, i) => {
           const isEven = i % 2 === 0;
           return (
@@ -70,16 +88,16 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
               key={s.heading}
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", 
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: "40px",
                 alignItems: "center",
               }}
             >
               {/* Text Side */}
-              <div style={{ padding: "0", order: isEven ? 0 : 1 }}> 
+              <div style={{ padding: "0", order: isEven ? 0 : 1 }}>
                 <h2
                   style={{
-                    fontSize: "28px", 
+                    fontSize: "28px",
                     fontWeight: 600,
                     marginBottom: "16px",
                     color: "#f5f5f7",
@@ -90,7 +108,7 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
                 </h2>
                 <p
                   style={{
-                    fontSize: "17px", 
+                    fontSize: "17px",
                     lineHeight: "1.6",
                     color: "#a1a1aa",
                     fontWeight: 400
@@ -116,6 +134,8 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
                   <img
                     src={s.image.src}
                     alt={s.image.alt}
+                    loading={i === 0 ? "eager" : "lazy"}
+                    decoding="async"
                     style={{
                       width: "100%",
                       height: "auto",
@@ -151,7 +171,7 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
             >
               See it in Action
             </h2>
-            
+
             <div
               style={{
                 position: "relative",
@@ -177,6 +197,7 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
                 }}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                loading="lazy"
                 title="Project Demo"
               />
             </div>
@@ -263,7 +284,7 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
 
               {/* Key Highlights Column */}
               <div>
-                 <h3
+                <h3
                   style={{
                     fontSize: "12px",
                     fontWeight: 600,
@@ -277,12 +298,40 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
                 >
                   Key Highlights
                 </h3>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "12px" }}>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px"
+                  }}
+                >
                   {project.architecture.bullets.map((b, i) => (
-                     <li key={i} style={{ fontSize: "15px", lineHeight: "1.5", color: "#d1d1d6", paddingLeft: "16px", position: "relative" }}>
-                        <span style={{ position: "absolute", left: 0, top: "9px", width: "4px", height: "4px", borderRadius: "50%", background: "#86868b" }} />
-                        {b}
-                     </li>
+                    <li
+                      key={i}
+                      style={{
+                        fontSize: "15px",
+                        lineHeight: "1.5",
+                        color: "#d1d1d6",
+                        paddingLeft: "16px",
+                        position: "relative"
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: "absolute",
+                          left: 0,
+                          top: "9px",
+                          width: "4px",
+                          height: "4px",
+                          borderRadius: "50%",
+                          background: "#86868b"
+                        }}
+                      />
+                      {b}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -300,8 +349,8 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
           borderTop: "1px solid #1d1d1f"
         }}
       >
-        <Link
-          href="/"
+        <button
+          onClick={handleBack}
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -310,11 +359,17 @@ export default function ProjectArticle({ project }: { project: ProjectDetail }) 
             fontSize: "15px",
             fontWeight: 500,
             textDecoration: "none",
-            transition: "opacity 0.2s"
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            transition: "opacity 0.2s",
+            padding: 0
           }}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "0.7")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
         >
           <span style={{ fontSize: "18px" }}>←</span> Back to Projects
-        </Link>
+        </button>
       </footer>
     </main>
   );

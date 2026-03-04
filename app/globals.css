@@ -21,6 +21,10 @@ body {
   padding: 0;
   scrollbar-width: none; 
 }
+html {
+  scroll-behavior: smooth;
+}
+
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
