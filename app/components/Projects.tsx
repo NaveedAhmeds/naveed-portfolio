@@ -31,7 +31,7 @@ const categories: Category[] = [
         title: "Self‑Driving Car Simulator",
         tag: "ML · Computer Vision",
         tech: "Python · TensorFlow · OpenCV · Flask",
-        image: "/projects/Self-drive.jpeg",
+        image: "/projects/self-drive.jpeg",
         link: "https://github.com/NaveedAhmeds/Neural-Pilot-Cloning",
         featured: true,
         bullets: [],
@@ -127,7 +127,6 @@ const categories: Category[] = [
   },
 ];
 
-// all projects flattened to know which index is truly "first"
 const allProjects = categories.flatMap((c) => c.projects);
 
 export function Projects() {
@@ -135,16 +134,16 @@ export function Projects() {
     <section
       id="projects"
       style={{
-        padding: "120px 24px",
+        padding: "120px 16px",
         maxWidth: "1200px",
         margin: "0 auto",
       }}
     >
       <style>{`
         .project-card {
-          background-color: #000;
-          border: 1px solid rgba(255,255,255,0.12);
-          border-radius: 20px;
+          background-color: #0a0a0a;
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 16px;
           overflow: hidden;
           display: flex;
           flex-direction: column;
@@ -153,19 +152,20 @@ export function Projects() {
             transform 160ms cubic-bezier(0.25, 0.8, 0.25, 1),
             box-shadow 160ms cubic-bezier(0.25, 0.8, 0.25, 1),
             border-color 160ms cubic-bezier(0.25, 0.8, 0.25, 1);
-          box-shadow: 0 16px 32px rgba(0,0,0,0.65);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.5);
           will-change: transform;
         }
 
         .project-card:hover {
           transform: translateY(-4px) translateZ(0);
-          box-shadow: 0 28px 56px rgba(0,0,0,0.85);
-          border-color: rgba(255,255,255,0.28);
+          box-shadow: 0 20px 48px rgba(0,0,0,0.85);
+          border-color: rgba(255,255,255,0.22);
         }
 
+        /* Mobile: compact image height */
         .project-img-wrap {
           position: relative;
-          height: 180px;
+          height: 120px;
           width: 100%;
           background-color: #050505;
           overflow: hidden;
@@ -179,8 +179,51 @@ export function Projects() {
           transform: scale(1.04) translateZ(0);
         }
 
-        .source-link {
+        /* Mobile content padding tighter */
+        .project-content {
+          padding: 12px 12px 12px;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          justify-content: space-between;
+          gap: 10px;
+        }
+
+        .project-title {
           font-size: 13px;
+          font-weight: 600;
+          color: #f5f5f7;
+          margin: 0 0 2px;
+          line-height: 1.3;
+          letter-spacing: -0.01em;
+        }
+
+        .project-tag {
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.07em;
+          color: #9ca3af;
+          margin: 0 0 4px;
+          font-weight: 500;
+        }
+
+        .project-tech {
+          font-size: 11px;
+          color: #71717a;
+          margin: 0;
+          font-weight: 400;
+          line-height: 1.4;
+        }
+
+        .project-links {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+
+        .source-link {
+          font-size: 11px;
           font-weight: 500;
           color: #d4d4d8;
           text-decoration: none;
@@ -192,13 +235,13 @@ export function Projects() {
         }
 
         .deep-dive-link {
-          font-size: 13px;
+          font-size: 11px;
           font-weight: 500;
           color: #2997ff;
           text-decoration: none;
           display: flex;
           align-items: center;
-          gap: 4px;
+          gap: 3px;
           transition: opacity 160ms ease;
         }
 
@@ -206,42 +249,115 @@ export function Projects() {
           opacity: 0.75;
         }
 
+        /* 2 columns on ALL sizes including mobile */
         .projects-grid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 16px;
+          gap: 12px;
         }
 
-        @media (max-width: 480px) {
+        /* Tablet and up: bigger image, more padding */
+        @media (min-width: 600px) {
+          .project-img-wrap {
+            height: 160px;
+          }
+
+          .project-content {
+            padding: 16px;
+          }
+
+          .project-title {
+            font-size: 16px;
+          }
+
+          .project-tag {
+            font-size: 11px;
+          }
+
+          .project-tech {
+            font-size: 12px;
+          }
+
+          .deep-dive-link,
+          .source-link {
+            font-size: 12px;
+          }
+
           .projects-grid {
-            grid-template-columns: 1fr;
+            gap: 16px;
           }
         }
 
-        @media (min-width: 768px) {
+        /* Desktop: full size */
+        @media (min-width: 900px) {
+          .project-img-wrap {
+            height: 200px;
+          }
+
+          .project-content {
+            padding: 18px 18px 16px;
+          }
+
+          .project-title {
+            font-size: 18px;
+          }
+
+          .project-tag {
+            font-size: 12px;
+          }
+
+          .project-tech {
+            font-size: 13px;
+          }
+
+          .deep-dive-link,
+          .source-link {
+            font-size: 13px;
+          }
+
           .projects-grid {
-            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
+          }
+        }
+
+        /* Category heading */
+        .cat-heading {
+          font-size: 18px;
+          font-weight: 600;
+          color: #f5f5f7;
+          margin-bottom: 16px;
+          letter-spacing: -0.01em;
+        }
+
+        @media (min-width: 600px) {
+          .cat-heading {
+            font-size: 22px;
+          }
+        }
+
+        @media (min-width: 900px) {
+          .cat-heading {
+            font-size: 24px;
           }
         }
       `}</style>
 
       {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: "80px" }}>
+      <div style={{ textAlign: "center", marginBottom: "60px" }}>
         <h2
           style={{
-            fontSize: "clamp(32px, 5vw, 56px)",
+            fontSize: "clamp(28px, 5vw, 56px)",
             fontWeight: 600,
             letterSpacing: "-0.02em",
             color: "#f5f5f7",
-            marginBottom: "12px",
+            marginBottom: "10px",
           }}
         >
           Selected Projects.
         </h2>
         <p
           style={{
-            fontSize: "clamp(19px, 3vw, 24px)",
+            fontSize: "clamp(16px, 3vw, 22px)",
             color: "#86868b",
             maxWidth: "600px",
             margin: "0 auto",
@@ -252,20 +368,10 @@ export function Projects() {
         </p>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "64px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
         {categories.map((cat) => (
           <div key={cat.name}>
-            <h3
-              style={{
-                fontSize: "24px",
-                fontWeight: 600,
-                color: "#f5f5f7",
-                marginBottom: "24px",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {cat.name}
-            </h3>
+            <h3 className="cat-heading">{cat.name}</h3>
 
             <div className="projects-grid">
               {cat.projects.map((p) => {
@@ -281,7 +387,7 @@ export function Projects() {
                         src={p.image}
                         alt={p.title}
                         fill
-                        sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 560px"
+                        sizes="(max-width: 600px) 50vw, (max-width: 900px) 50vw, 560px"
                         style={{ objectFit: "cover" }}
                         priority={globalIndex < 2}
                         loading={globalIndex < 2 ? "eager" : "lazy"}
@@ -290,13 +396,13 @@ export function Projects() {
                         <span
                           style={{
                             position: "absolute",
-                            top: "12px",
-                            right: "12px",
+                            top: "8px",
+                            right: "8px",
                             background: "rgba(255,255,255,0.96)",
                             color: "#000",
-                            fontSize: "10px",
+                            fontSize: "9px",
                             fontWeight: 700,
-                            padding: "4px 10px",
+                            padding: "3px 8px",
                             borderRadius: "999px",
                             textTransform: "uppercase",
                             letterSpacing: "0.06em",
@@ -309,78 +415,30 @@ export function Projects() {
                     </div>
 
                     {/* Content */}
-                    <div
-                      style={{
-                        padding: "18px 18px 16px",
-                        display: "flex",
-                        flexDirection: "column",
-                        flex: 1,
-                        justifyContent: "space-between",
-                      }}
-                    >
+                    <div className="project-content">
                       <div>
-                        <h4
-                          style={{
-                            fontSize: "18px",
-                            fontWeight: 600,
-                            color: "#f5f5f7",
-                            margin: "0 0 4px",
-                            lineHeight: "1.3",
-                            letterSpacing: "-0.01em",
-                          }}
-                        >
-                          {p.title}
-                        </h4>
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.08em",
-                            color: "#9ca3af",
-                            margin: "0 0 6px",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {p.tag}
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "13px",
-                            color: "#a1a1aa",
-                            margin: 0,
-                            fontWeight: 400,
-                          }}
-                        >
-                          {p.tech}
-                        </p>
+                        <h4 className="project-title">{p.title}</h4>
+                        <p className="project-tag">{p.tag}</p>
+                        <p className="project-tech">{p.tech}</p>
                       </div>
 
-                      {/* Links */}
-                      <div
-                        style={{
-                          marginTop: "18px",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "16px",
-                        }}
-                      >
+                      <div className="project-links">
                         {showDeepDive && (
                           <Link
                             href={`/projects/${p.slug}`}
                             className="deep-dive-link"
                             prefetch={true}
                           >
-                            Technical Deep Dive <span style={{ fontSize: "15px" }}>›</span>
+                            Deep Dive <span style={{ fontSize: "13px" }}>›</span>
                           </Link>
                         )}
-
                         <a
                           href={p.link}
                           target="_blank"
                           rel="noreferrer"
                           className="source-link"
                         >
-                          Source Code ↗
+                          Source ↗
                         </a>
                       </div>
                     </div>
